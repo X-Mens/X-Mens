@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: xmens
+  profiles:
+    active: dev
+  cloud:
+    stream:
+      bindings:
+        outBoundMutant:
+          destination: MUTANT
+          content-type: application/json
+        inBoundMutant:
+          destination: MUTANT
+          content-type: application/json
+          group: xmens
+      kafka:
+        binder:
+          brokers: localhost
+redis:
+  port: 6380
+  host: "172.17.0.1"
+
+logging:
+  level:
+    org:
+      springframework:
+        cache: INFO
