@@ -25,3 +25,10 @@ logging:
     org:
       springframework:
         cache: INFO
+
+amazon:
+  dynamodb:
+    endpoint: "localhost:8000"
+  aws:
+    accesskey: "onekey"
+    secretkey: "secondkey"

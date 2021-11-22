@@ -17,6 +17,9 @@
         <java.version>11</java.version>
         <open.api.version>1.5.2</open.api.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+        <redis.client.jedis.version>3.6.3</redis.client.jedis.version>
+        <aws.sdk.dynamodb.version>1.11.64</aws.sdk.dynamodb.version>
+        <github.spring-data-dynamodb.version>5.1.0</github.spring-data-dynamodb.version>
     </properties>
     <dependencies>
         <dependency>
@@ -46,7 +49,7 @@
         </dependency>
 
 
-        <!-- -->
+        <!-- Spring cloud stream kafka dependecies -->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -56,6 +59,8 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-kafka</artifactId>
         </dependency>
+
+        <!-- Redis cache dependencies-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -70,7 +75,19 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.6.3</version>
+            <version>${redis.client.jedis.version}</version>
+        </dependency>
+
+        <!-- Dynamo db dependencies-->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-dynamodb</artifactId>
+            <version>${aws.sdk.dynamodb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.derjust</groupId>
+            <artifactId>spring-data-dynamodb</artifactId>
+            <version>${github.spring-data-dynamodb.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,17 +1,14 @@
 package crk.interview.xmens.infra.repository;
 
-import crk.interview.xmens.domain.model.DnaType;
-import crk.interview.xmens.domain.repository.StatRepository;
-import crk.interview.xmens.infra.events.SenderDna;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.socialsignin.spring.data.dynamodb.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public class StatDynamoDbRepository implements StatRepository {
+public interface StatDynamoDbRepository extends CrudRepository<StatTable, String> {
 
-    private static final Logger logger = LoggerFactory.getLogger(SenderDna.class);
+    @Query(fields = "update set countHumanDna = if_not_exists(countHumanDna, 0) + 1")
+    void increaseCountHumanDna();
 
-    @Override
-    public void increaseCounterByDnaType(DnaType dnaType) {
-
-    }
+    @Query(fields = "update set countMutantDna = if_not_exists(countMutantDna, 0) + 1")
+    void increaseCountMutantDna();
 }

@@ -1,7 +1,6 @@
 package crk.interview.xmens.infra.entry_point.request;
 
 import crk.interview.xmens.domain.model.Dna;
-
 import lombok.Getter;
 import lombok.Setter;
 
