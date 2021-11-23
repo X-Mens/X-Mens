@@ -28,7 +28,10 @@ logging:
 
 amazon:
   dynamodb:
-    endpoint: "localhost:8000"
+    endpoint: "http://localhost:8000"
   aws:
     accesskey: "onekey"
     secretkey: "secondkey"
+
+aggregation:
+  key: "aggregation"
