@@ -26,6 +26,24 @@ logging:
       springframework:
         cache: INFO
 
+management:
+  endpoints:
+    web:
+      discovery:
+        enabled: true
+      exposure:
+        include: "health,env,info,refresh"
+    enabled-by-default: false
+  endpoint:
+    info:
+      enabled: true
+    env:
+      enabled: true
+    health:
+      enabled: true
+    refresh:
+      enabled: true
+
 amazon:
   dynamodb:
     endpoint: "http://localhost:8000"
