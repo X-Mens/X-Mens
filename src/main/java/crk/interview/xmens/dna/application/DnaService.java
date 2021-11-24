@@ -1,5 +1,6 @@
 package crk.interview.xmens.dna.application;
 
+import crk.interview.xmens.dna.domain.events.SenderDnaEvent;
 import crk.interview.xmens.dna.domain.model.Dna;
 import crk.interview.xmens.dna.domain.repository.DnaRepository;
 import crk.interview.xmens.dna.infra.events.SenderDna;
@@ -8,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static crk.interview.xmens.dna.infra.config.redis.CacheConfiguration.MUTANT_CACHE;
 
@@ -18,24 +21,22 @@ import static crk.interview.xmens.dna.infra.config.redis.CacheConfiguration.MUTA
 public class DnaService {
 
     DnaRepository adnRepository;
-    SenderDna senderMessageBroker;
+    SenderDnaEvent senderMessageBroker;
     private static final Logger logger = LoggerFactory.getLogger(SenderDna.class);
 
     @Autowired
-    public DnaService(DnaRepository adnRepository, SenderDna senderMessageBroker) {
+    public DnaService(DnaRepository adnRepository, SenderDnaEvent senderMessageBroker) {
 
         this.adnRepository = adnRepository;
         this.senderMessageBroker = senderMessageBroker;
     }
 
-    @Cacheable(MUTANT_CACHE)
-    public boolean isMutant(Dna adn) {
+    @Cacheable(value = MUTANT_CACHE, key = "#p0")
+    public boolean isMutant(int idDna, Dna adn) {
 
         DnaType dnaState = adn.isMutant();
-        String idDna = UUID.randomUUID().toString();
-        adnRepository.saveResultIsMutantAdn(idDna, dnaState);
+        adnRepository.saveResultIsMutantDna(idDna, dnaState);
         senderMessageBroker.publishResultDnaAnalysis(dnaState, idDna);
-
         return dnaState == DnaType.MUTANT;
     }
 

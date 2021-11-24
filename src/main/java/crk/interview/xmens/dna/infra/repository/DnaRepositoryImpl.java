@@ -20,10 +20,11 @@ public class DnaRepositoryImpl implements DnaRepository {
     }
 
     @Override
-    public void saveResultIsMutantAdn(String idDna, DnaType type) {
+    public void saveResultIsMutantDna(int idDna, DnaType type) {
 
         DnaTable dnaTable = new DnaTable();
         dnaTable.setType(type.toString());
+        dnaTable.setIdDna(idDna);
         dnaDynamoDbRepository.save(dnaTable);
     }
 }

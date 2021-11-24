@@ -22,10 +22,10 @@ public class Stat {
     public void calculateRatio() {
 
         if (countHumanDna == 0) {
-            this.ratio = .0;
+            ratio = 0.0;
+        }else{
+            ratio = (double) countMutantDna / (double) countHumanDna;
         }
-
-        this.ratio = (double) countMutantDna / (double) countHumanDna;
     }
 
 

@@ -1,5 +1,6 @@
 package crk.interview.xmens.dna.infra.events;
 
+import crk.interview.xmens.dna.domain.events.SenderDnaEvent;
 import crk.interview.xmens.share.domain.model.DnaType;
 import crk.interview.xmens.share.infra.events.DnaAnalysisModel;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SenderDna {
+public class SenderDna implements SenderDnaEvent {
 
     private static final Logger logger = LoggerFactory.getLogger(SenderDna.class);
 
@@ -22,7 +23,7 @@ public class SenderDna {
         this.output = output;
     }
 
-    public void publishResultDnaAnalysis(DnaType adnState, String adnId) {
+    public void publishResultDnaAnalysis(DnaType adnState, int adnId) {
 
         logger.info("Sending message kafka message {} for AdnId {}", adnState, adnId);
         DnaAnalysisModel change = new DnaAnalysisModel(adnState, adnId);

@@ -9,8 +9,8 @@ public class Dna {
 
     private String[] adn;
     private final int adnSize;
-    private final int[] dx = new int[]{-1, -2, -3};
-    private final int[] dy = new int[]{-1, -2, -3};
+    private final int[] dx = new int[]{1, 2, 3};
+    private final int[] dy = new int[]{1, 2, 3};
 
     public Dna(String[] dna) {
         this.adn = dna;
@@ -22,11 +22,12 @@ public class Dna {
         boolean isMutant = false;
         if (adnSize > 3) {
             int countSequenceSame = 0;
-            for (int i = 3; i < adnSize && countSequenceSame < 2; i++) {
-                for (int j = 3; j < adnSize; j++) {
+            int n = (adnSize - adnSize % 3) - 1;
+            for (int i = 0; i < n && countSequenceSame < 2; i++) {
+                for (int j = 0; j < n && countSequenceSame < 2; j++) {
                     countSequenceSame += verifyHorizontal(i, j);
                     countSequenceSame += verifyVertical(i, j);
-                    countSequenceSame += verifyOblicua(i, j);
+                    countSequenceSame += verifyOblique(i, j);
                 }
             }
             isMutant = countSequenceSame >= 2;
@@ -34,21 +35,36 @@ public class Dna {
         return isMutant ? DnaType.MUTANT : DnaType.HUMAN;
     }
 
-    private int verifyOblicua(int x, int y) {
+    private int verifyOblique(int x, int y) {
         char character = this.adn[x].charAt(y);
-        for (int i = 0; i < 3; i++) {
-            char characterToCompare = this.adn[x + dx[i]].charAt(y + dy[i]);
-            if (characterToCompare != character) {
-                return 0;
-            }
+        boolean obliqueUp = true;
+        boolean obliqueDown = true;
+        for (int i = 1; i <= 3; i++) {
+            obliqueUp &= isThereSequence(y - i > 0, x + i, y - i, character);
+            obliqueDown &= isThereSequence(y + i < adnSize, x + i, y + i, character);
         }
-        return 1;
+        if (obliqueUp && obliqueDown) return 2;
+        if (obliqueUp || obliqueDown) return 1;
+        else return 0;
+    }
+
+    private boolean isThereSequence(boolean condition, int dx, int dy, char character) {
+        boolean isThereSequence = true;
+        if (condition) {
+            char characterToCompare = this.adn[dx].charAt(dy);
+            if (characterToCompare != character) {
+                isThereSequence = false;
+            }
+        } else {
+            isThereSequence = false;
+        }
+        return isThereSequence;
     }
 
     private int verifyVertical(int x, int y) {
         char character = this.adn[x].charAt(y);
-        for (int i = 0; i < 3; i++) {
-            char characterToCompare = this.adn[x].charAt(y + dy[i]);
+        for (int i = 1; i <= 3; i++) {
+            char characterToCompare = this.adn[x].charAt(y + i);
             if (characterToCompare != character) {
                 return 0;
             }
@@ -58,8 +74,8 @@ public class Dna {
 
     private int verifyHorizontal(int x, int y) {
         char character = this.adn[x].charAt(y);
-        for (int i = 0; i < 3; i++) {
-            char characterToCompare = this.adn[x + dx[i]].charAt(y);
+        for (int i = 1; i <= 3; i++) {
+            char characterToCompare = this.adn[x + i].charAt(y);
             if (characterToCompare != character) {
                 return 0;
             }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+
 @RestController
 @RequestMapping("v1/adns")
 public class DnaController {
@@ -29,9 +31,9 @@ public class DnaController {
     @PostMapping("/mutant")
     public ResponseEntity<?> isMutant(@RequestBody DnaRequest validMutantRequest) {
 
-        HttpStatus responseStatus = mutantService.isMutant(validMutantRequest.toAdn())
+        int idAdn = Arrays.deepHashCode(validMutantRequest.getAdn());
+        HttpStatus responseStatus = mutantService.isMutant(idAdn, validMutantRequest.toAdn())
                 ? HttpStatus.OK : HttpStatus.FORBIDDEN;
         return new ResponseEntity<>(responseStatus);
     }
-
 }
