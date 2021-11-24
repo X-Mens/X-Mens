@@ -4,7 +4,6 @@ package crk.interview.xmens.dna.application;
 import crk.interview.xmens.dna.domain.events.SenderDnaEvent;
 import crk.interview.xmens.dna.domain.model.Dna;
 import crk.interview.xmens.dna.domain.repository.DnaRepository;
-import crk.interview.xmens.dna.infra.config.redis.CacheConfiguration;
 import crk.interview.xmens.share.domain.model.DnaType;
 
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class DnaServiceTest {
     private SenderDnaEvent senderDnaEventMock;
 
     @Autowired
-    private DnaService itemService;
+    private DnaService dnaService;
 
     @Autowired
     private CacheManager cacheManager;
@@ -62,8 +61,8 @@ class DnaServiceTest {
         Dna dna = new Dna(dnaArray);
         int idAdn = Arrays.deepHashCode(dnaArray);
 
-        itemService.isMutant(idAdn, dna);
-        itemService.isMutant(idAdn, dna);
+        dnaService.isMutant(idAdn, dna);
+        dnaService.isMutant(idAdn, dna);
 
         verify(adnRepositoryMock, times(1)).saveResultIsMutantDna(idAdn, DnaType.MUTANT);
         verify(senderDnaEventMock, times(1)).publishResultDnaAnalysis(DnaType.MUTANT, idAdn);
@@ -81,8 +80,8 @@ class DnaServiceTest {
         Dna dna = new Dna(dnaArray);
         int idAdn = Arrays.deepHashCode(dnaArray);
 
-        itemService.isMutant(idAdn, dna);
-        itemService.isMutant(idAdn, dna);
+        dnaService.isMutant(idAdn, dna);
+        dnaService.isMutant(idAdn, dna);
 
         verify(adnRepositoryMock, times(1)).saveResultIsMutantDna(idAdn, DnaType.MUTANT);
         verify(senderDnaEventMock, times(1)).publishResultDnaAnalysis(DnaType.MUTANT, idAdn);
