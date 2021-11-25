@@ -69,28 +69,6 @@ class DnaServiceTest {
         assertThat(itemFromCache(idAdn)).isEqualTo(true);
     }
 
-    @Test
-    void shouldBe() {
-        String[] dnaArray = new String[]{
-                "TTTT",
-                "TAGC",
-                "TAGC",
-                "TAGC",
-        };
-        Dna dna = new Dna(dnaArray);
-        int idAdn = Arrays.deepHashCode(dnaArray);
-
-        dnaService.isMutant(idAdn, dna);
-        dnaService.isMutant(idAdn, dna);
-
-        verify(adnRepositoryMock, times(1)).saveResultIsMutantDna(idAdn, DnaType.MUTANT);
-        verify(senderDnaEventMock, times(1)).publishResultDnaAnalysis(DnaType.MUTANT, idAdn);
-        assertThat(itemFromCache(idAdn)).isEqualTo(true);
-    }
-
-
-
-
     private Object itemFromCache(int idAdn) {
         return cacheManager.getCache("mutant").get(idAdn).get();
     }

@@ -22,9 +22,8 @@ public class Dna {
         boolean isMutant = false;
         if (adnSize > 3) {
             int countSequenceSame = 0;
-            int n = (adnSize - adnSize % 3) - 1;
-            for (int i = 0; i < n && countSequenceSame < 2; i++) {
-                for (int j = 0; j < n && countSequenceSame < 2; j++) {
+            for (int i = 0; i < adnSize && countSequenceSame < 2; i++) {
+                for (int j = 0; j < adnSize && countSequenceSame < 2; j++) {
                     countSequenceSame += verifyHorizontal(i, j);
                     countSequenceSame += verifyVertical(i, j);
                     countSequenceSame += verifyOblique(i, j);
@@ -40,8 +39,8 @@ public class Dna {
         boolean obliqueUp = true;
         boolean obliqueDown = true;
         for (int i = 1; i <= 3; i++) {
-            obliqueUp &= isThereSequence(y - i > 0, x + i, y - i, character);
-            obliqueDown &= isThereSequence(y + i < adnSize, x + i, y + i, character);
+            obliqueUp &= isThereSequence(y - i >= 0 && x + i < adnSize, x + i, y - i, character);
+            obliqueDown &= isThereSequence(y + i < adnSize && x + i < adnSize, x + i, y + i, character);
         }
         if (obliqueUp && obliqueDown) return 2;
         if (obliqueUp || obliqueDown) return 1;
@@ -64,6 +63,7 @@ public class Dna {
     private int verifyVertical(int x, int y) {
         char character = this.adn[x].charAt(y);
         for (int i = 1; i <= 3; i++) {
+            if (y + i >= adnSize)return 0;
             char characterToCompare = this.adn[x].charAt(y + i);
             if (characterToCompare != character) {
                 return 0;
@@ -75,6 +75,7 @@ public class Dna {
     private int verifyHorizontal(int x, int y) {
         char character = this.adn[x].charAt(y);
         for (int i = 1; i <= 3; i++) {
+            if (x + i >= adnSize)return 0;
             char characterToCompare = this.adn[x + i].charAt(y);
             if (characterToCompare != character) {
                 return 0;
