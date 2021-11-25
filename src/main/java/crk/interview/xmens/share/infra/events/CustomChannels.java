@@ -11,6 +11,6 @@ public interface CustomChannels {
     SubscribableChannel mutantEventHandler();
 
     @Output("outBoundMutant")
-    MessageChannel handler();
+    MessageChannel mutantEventConsumerHandler();
 
 }

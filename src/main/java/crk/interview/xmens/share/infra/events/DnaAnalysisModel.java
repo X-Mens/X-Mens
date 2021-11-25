@@ -11,7 +11,7 @@ import lombok.Setter;
 public class DnaAnalysisModel {
 
     private DnaType adnState;
-    private String adnId;
+    private int adnId;
 
     @Override
     public String toString() {
