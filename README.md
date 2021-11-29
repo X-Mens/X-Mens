@@ -2,59 +2,31 @@
 
 ## Prerequisitos
 
-* java
-* maven  
-* docker
 * docker-compose
 * git
 
-## How does it execute?
+## Clone project
 
  
 * First, you should clone the repository
 ```console
 crkjohn@crkjohn:~$ git clone https://github.com/X-Mens/X-Mens.git
 crkjohn@crkjohn:~$ cd X-Mens 
-crkjohn@crkjohn:~$ mvn package
 ```
 
-### Run project on Docker
-```console
-crkjohn@crkjohn:~$ docker build . --tag x-men
-```
+### How to run project local on Docker
 
-* once the image has been created, we now have to deploy the rest of the architecture
+
+* You just run only the following command on root folder project
 
 ```console
 crkjohn@crkjohn:~$ docker-compose -f docker-componse.yaml up --build
 ```
 
-* one the rest of architecture is running, you can start the application 
+* Once the container is running, you can consume the service the following [url](http://localhost:8081/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config) 
 
+you can also see the status of the containers in portainer, you can enter in this [link](http://localhost:9999/#!/1/docker/dashboard)
 
-```console
-crkjohn@crkjohn:~$ docker run -p8080:8080 xmen:latest
-```
-
-Be careful on which network card your containers run on, in the case of ubuntu there is a special network card for network and therefore, it is necessary to modify the application.yaml and change the broker to the ip of the docker network card.
-
-```yaml
-        .
-        . configuration
-        .
-      kafka:
-        binder:
-          brokers:  IP Network card docker 
-```
-
-### Run local
-
-You just need to run the following commands in different terminals
-
-```console
-crkjohn@crkjohn:~$ docker-compose -f docker-componse.yaml up --buil
-crkjohn@crkjohn:~$ java -jar target/xmens-0.0.1-SNAPSHOT.jar
-```
 
 ## API
 
@@ -72,27 +44,3 @@ curl --location --request POST 'https://ycfior86f8.execute-api.us-east-1.amazona
 ```bash
 curl --location --request GET 'https://ycfior86f8.execute-api.us-east-1.amazonaws.com/v1/stat'
 ```
-
-
-## Architecture
-
-### Architecture with this project
-
-![](https://github.com/CrkJohn/ConfigFilesExample/blob/develop/NoServeless.png)
-
-
-
-### Architecture serveless 
-*for ease and time issues, I decided to deploy the serveless service, the algorithm is the same as the one used in this project to solve the problem.*
-
-![](https://github.com/CrkJohn/ConfigFilesExample/blob/develop/Serveless.png)
-
-
-* Dna Lambda link project 
-    [](https://github.com/X-Mens/DnaLambda)
-* Stat Lambda link project 
-    [](https://github.com/X-Mens/DnaLambda)
-
-### Autor
-
-John David Ibañez - [CrkJohn](https://github.com/CrkJohn)
