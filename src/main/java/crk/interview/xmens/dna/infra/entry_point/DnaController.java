@@ -2,9 +2,6 @@ package crk.interview.xmens.dna.infra.entry_point;
 
 import crk.interview.xmens.dna.application.DnaService;
 import crk.interview.xmens.dna.infra.entry_point.request.DnaRequest;
-import crk.interview.xmens.dna.infra.events.SenderDna;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +17,6 @@ import java.util.Arrays;
 public class DnaController {
 
     private final DnaService mutantService;
-    private static final Logger logger = LoggerFactory.getLogger(SenderDna.class);
 
 
     @Autowired

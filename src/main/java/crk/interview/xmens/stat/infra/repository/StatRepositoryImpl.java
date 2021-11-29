@@ -1,6 +1,6 @@
 package crk.interview.xmens.stat.infra.repository;
 
-import crk.interview.xmens.dna.infra.events.SenderDna;
+import crk.interview.xmens.dna.infra.events.SenderKafkaDna;
 import crk.interview.xmens.share.domain.model.DnaType;
 import crk.interview.xmens.stat.domain.model.Stat;
 import crk.interview.xmens.stat.domain.repository.StatRepository;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class StatRepositoryImpl implements StatRepository {
 
     StatDynamoDbRepository statDynamoDbRepository;
-    private static final Logger logger = LoggerFactory.getLogger(SenderDna.class);
+    private static final Logger logger = LoggerFactory.getLogger(SenderKafkaDna.class);
 
     @Value("${aggregation.key}")
     public String hashKey;
