@@ -24,8 +24,11 @@ import org.springframework.stereotype.Repository;
 )
 public class DynamoDBConfig {
 
-    @Value("${amazon.dynamodb.endpoint}")
-    private String amazonDynamoDBEndpoint;
+    @Value("${amazon.dynamodb.host}")
+    private String host;
+
+    @Value("${amazon.dynamodb.port}")
+    private String port;
 
     @Value("${amazon.aws.accesskey}")
     private String amazonAWSAccessKey;
@@ -38,6 +41,7 @@ public class DynamoDBConfig {
         AmazonDynamoDB amazonDynamoDB
                 = new AmazonDynamoDBClient(amazonAWSCredentials());
 
+        String amazonDynamoDBEndpoint = "http://" + host + ":" + port;
         if (!StringUtils.isEmpty(amazonDynamoDBEndpoint)) {
             amazonDynamoDB.setEndpoint(amazonDynamoDBEndpoint);
         }

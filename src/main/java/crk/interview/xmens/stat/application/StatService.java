@@ -1,6 +1,5 @@
 package crk.interview.xmens.stat.application;
 
-import crk.interview.xmens.dna.infra.events.SenderDna;
 import crk.interview.xmens.share.domain.model.DnaType;
 import crk.interview.xmens.stat.domain.model.Stat;
 import crk.interview.xmens.stat.domain.repository.StatRepository;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class StatService {
 
     StatRepository statRepository;
-    private static final Logger logger = LoggerFactory.getLogger(SenderDna.class);
+    private static final Logger logger = LoggerFactory.getLogger(StatService.class);
 
     public StatService(StatRepository statRepository) {
         this.statRepository = statRepository;

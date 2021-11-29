@@ -15,10 +15,11 @@ spring:
           group: xmens
       kafka:
         binder:
-          brokers: localhost
+          brokers: kafka
+
 redis:
-  port: 6380
-  host: "172.17.0.1"
+  port: 6379
+  host: sbs_redis
 
 logging:
   level:
@@ -46,10 +47,14 @@ management:
 
 amazon:
   dynamodb:
-    endpoint: "http://localhost:8000"
+    host: dynamodb-local
+    port: 8000
   aws:
     accesskey: "onekey"
     secretkey: "secondkey"
 
 aggregation:
   key: "aggregation"
+
+server:
+  port: 8081
