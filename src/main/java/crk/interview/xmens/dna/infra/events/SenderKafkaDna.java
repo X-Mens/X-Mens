@@ -12,14 +12,14 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SenderDna implements SenderDnaEvent {
+public class SenderKafkaDna implements SenderDnaEvent {
 
-    private static final Logger logger = LoggerFactory.getLogger(SenderDna.class);
+    private static final Logger logger = LoggerFactory.getLogger(SenderKafkaDna.class);
 
     MessageChannel output;
 
     @Autowired
-    public SenderDna(@Qualifier("inBoundMutant") MessageChannel output) {
+    public SenderKafkaDna(@Qualifier("inBoundMutant") MessageChannel output) {
         this.output = output;
     }
 
